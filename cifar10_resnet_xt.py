@@ -38,12 +38,12 @@ subtract_pixel_mean = True
 
 # Model parameter
 # ----------------------------------------------------------------------------
-#           |      | 200-epoch | Orig Paper| 200-epoch | Orig Paper| sec/epoch
-# Model     |  n   | ResNet v1 | ResNet v1 | ResNet v2 | ResNet v2 | GTX1090Ti
-#           |      | %Accuracy | %Accuracy | %Accuracy | %Accuracy | v1 (v2)
+#              |      | 200-epoch | Orig Paper| 200-epoch | Orig Paper| sec/epoch
+# Model        |  n   | ResNet v1 | ResNet v1 | ResNet v2 | ResNet v2 | GTX1090Ti
+#              |      | %Accuracy | %Accuracy | %Accuracy | %Accuracy | v1 (v2)
 # ----------------------------------------------------------------------------
-# ResNet20  |  3   | -----     | -----     | -----     | NA        |       
-# ResNet32  |  5   |           |           |           |           |       
+# ResNetXt-20  |  3   | -----     | -----     | -----     | NA        |       
+# ResNetXt-32  |  5   |           |           |           |           |       
 # ---------------------------------------------------------------------------
 n = 3
 
@@ -51,7 +51,7 @@ n = 3
 depth = n * 6 + 2
 
 # Model name, depth and version
-model_type = 'ResNet%dXt' % depth
+model_type = 'ResNetXt-%d' % depth
 
 # Load the CIFAR10 data.
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
@@ -146,6 +146,7 @@ def resnet_block(inputs,
                kernel_regularizer=l2(1e-4))(x)
     return x
 
+#[b] Figure 4 Left
 def resnet_xt_block(inputs,
                  num_filters=16,
                  kernel_size=3,
